@@ -12,7 +12,7 @@ import (
 
 const (
 	profilerDir = "/tmp/async-profiler"
-	fileName    = "/tmp/flamegraph.svg"
+	fileName    = "/tmp/flamegraph.html"
 	profilerSh  = profilerDir + "/profiler.sh"
 )
 
@@ -45,7 +45,7 @@ func (j *JvmProfiler) Invoke(job *details.ProfilingJob) error {
 
 	duration := strconv.Itoa(int(job.Duration.Seconds()))
 	event := string(job.Event)
-	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event, pid)
+	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event, pid) // todo: can consider to add more command here :) to provide support for k8s too
 	var out bytes.Buffer
 	var stderr bytes.Buffer
 	cmd.Stdout = &out

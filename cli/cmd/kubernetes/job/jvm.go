@@ -79,7 +79,8 @@ func (c *jvmCreator) create(targetPod *apiv1.Pod, cfg *data.FlameConfig) (string
 					InitContainers:   nil,
 					Containers: []apiv1.Container{
 						{
-							ImagePullPolicy: apiv1.PullAlways,
+							// ImagePullPolicy: apiv1.PullAlways,
+							ImagePullPolicy: apiv1.PullNever, // TEMP: to be able to build for dev mode
 							Name:            ContainerName,
 							Image:           imageName,
 							Command:         []string{"/app/agent"},
@@ -120,5 +121,7 @@ func (c *jvmCreator) getAgentImage(targetDetails *data.TargetDetails) string {
 		tag = fmt.Sprintf("%s-alpine", tag)
 	}
 
-	return fmt.Sprintf("%s:%s", baseImageName, tag)
+	// return fmt.Sprintf("%s:%s", baseImageName, tag)
+	return "kubectl-flame-asyncprofiler2:v0.0.1" // this is for test usage
+	// return "hyotestgrails242:latest"// TEMP: another test
 }
