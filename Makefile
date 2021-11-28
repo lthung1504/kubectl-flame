@@ -7,7 +7,7 @@ docker_build_new:
 release:
 	# need to tag it, such as "git tag -a v0.0.2 -m 'first next release'"
 	git tag -a $(NEW_TAG) -m 'bump tag'
-	goreleaser release --rm-dist
+	goreleaser release --rm-dist --skip-publish
 
 execute:
-	./dist/kubectl-flame_darwin_amd64/kubectl-flame hyotestgrails242-rz5kn -n default -t 20s --lang java -f ./output/flamegraph.html
+	./dist/kubectl-flame_darwin_amd64/kubectl-flame hyotestgrails242-rz5kn -n default -t 20s --lang java -f ./output/flamegraph.jfr
