@@ -48,7 +48,11 @@ func (j *JvmProfiler) Invoke(job *details.ProfilingJob) error {
 	duration := strconv.Itoa(int(job.Duration.Seconds()))
 	event := string(job.Event)
 	fmt.Printf("trying exec.Command with fileName = %s, event = %s, pid = %s\n", fileName, event, pid)
-	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event, pid) // todo: can consider to add more command here :) to provide support for k8s too; the error from this cmd when it run !!
+	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event,
+		"-o", "jfr",
+		"--chunksize", "100m",
+		"--chunktime", "1h",
+		pid)
 
 	fmt.Printf("finish exec.Command with profilersh: %s\n", profilerSh)
 	var out bytes.Buffer

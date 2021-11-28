@@ -23,7 +23,7 @@ func (h *ApiEventsHandler) Handle(events chan string, done chan bool, ctx contex
 	for eventString := range events {
 		event, err := api.ParseEvent(eventString)
 		if err != nil {
-			fmt.Printf("Got invalid event: %s\n", err)
+			fmt.Printf("Got invalid err: %s, for event: %+v\n", err, event)
 		} else {
 			switch data := event.(type) {
 			case *api.ErrorData:
