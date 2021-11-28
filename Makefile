@@ -6,6 +6,7 @@ docker_build_new:
 
 release:
 	# need to tag it, such as "git tag -a v0.0.2 -m 'first next release'"
+	git tag -a $(NEW_TAG) -m 'bump tag'
 	goreleaser release --rm-dist
 
 execute:
