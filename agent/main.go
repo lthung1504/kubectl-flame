@@ -17,28 +17,28 @@ import (
 )
 
 func main() {
-	println("starting")
+	fmt.Println("starting")
 	args, err := validateArgs() // this one is the one need arguments; maybe the one need params ??
 	handleError(err)
 
-	println("trying PublishEvent")
+	fmt.Println("trying PublishEvent")
 	err = api.PublishEvent(api.Progress, &api.ProgressData{Time: time.Now(), Stage: api.Started})
 	handleError(err)
 
-	println("trying ForLanguage")
+	fmt.Println("trying ForLanguage")
 	p, err := profiler.ForLanguage(args.Language)
 	handleError(err)
 
-	println("trying SetUp")
+	fmt.Println("trying SetUp")
 	err = p.SetUp(args)
 	handleError(err)
 
-	println("trying handleSignals") // problem here
+	fmt.Println("trying handleSignals") // problem here
 	done := handleSignals()
 	err = p.Invoke(args)
 	handleError(err)
 
-	println("trying PublishEvent")
+	fmt.Println("trying PublishEvent")
 	err = api.PublishEvent(api.Progress, &api.ProgressData{Time: time.Now(), Stage: api.Ended})
 	handleError(err)
 
