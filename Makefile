@@ -10,4 +10,9 @@ release:
 	goreleaser release --rm-dist --skip-publish
 
 execute:
-	./dist/kubectl-flame_darwin_amd64/kubectl-flame hyotestgrails242-rz5kn -n default -t 20s --lang java -f ./output/flamegraph.jfr
+	./dist/kubectl-flame_darwin_amd64/kubectl-flame $(TARGET_POD) -n default -t 5m --lang java -f ./output/flamegraph.jfr
+
+expose_hyotestgrails242_service_port:
+	kubectl port-forward service/hyotestgrails242 8080:8080
+
+# README: use from top to bottom, to try it out. can share with SRE the file, to run execute when needed with the pod name input
