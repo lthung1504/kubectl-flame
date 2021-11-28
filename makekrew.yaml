@@ -1,0 +1,35 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: hyo-flame
+spec:
+  homepage: https://github.com/lthung1504/kubectl-flame
+  shortDescription: Generate CPU flame graphs from pods
+  version: 0.1
+  description: |
+    Generate CPU flame graphs without restarting pods and with low overhead.
+  caveats: |
+    Currently supported languages: Go, Java (any JVM based language), Python and Ruby.
+  platforms:
+    - {{addURIAndSha "https://github.com/lthung1504/kubectl-flame/releases/download/0.0.1/kubectl-flame_0.0.1_linux_x86_64.tar.gz" .TagName | indent 6 }}
+      bin: kubectl-flame
+      files:
+        - from: kubectl-flame
+          to: .
+        - from: LICENSE
+          to: .
+      selector:
+        matchLabels:
+          os: linux
+          arch: amd64
+    - {{addURIAndSha "https://github.com/lthung1504/kubectl-flame/releases/download/0.0.1/kubectl-flame_0.0.1_linux_arm64.tar.gz" .TagName | indent 6 }}
+      bin: kubectl-flame
+      files:
+        - from: kubectl-flame
+          to: .
+        - from: LICENSE
+          to: .
+      selector:
+        matchLabels:
+          os: linux
+          arch: arm64
