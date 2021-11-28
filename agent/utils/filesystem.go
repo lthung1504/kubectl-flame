@@ -11,11 +11,16 @@ const (
 )
 
 func GetTargetFileSystemLocation(containerId string) (string, error) {
+	fmt.Printf("GetTargetFileSystemLocation with containerId = %s\n", containerId)
 	fileName := fmt.Sprintf(mountIdLocation, containerId)
 	mountId, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		return "", err
 	}
 
-	return fmt.Sprintf(targetFileSystemLocation, string(mountId)), nil
+	targetFileSystemLocation := fmt.Sprintf(targetFileSystemLocation, string(mountId))
+
+	fmt.Printf("GetTargetFileSystemLocation output with targetFileSystemLocation= %s, \nfileName = %s\n\n", targetFileSystemLocation, fileName)
+
+	return targetFileSystemLocation, nil
 }

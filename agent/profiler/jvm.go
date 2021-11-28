@@ -56,11 +56,9 @@ func (j *JvmProfiler) Invoke(job *details.ProfilingJob) error {
 	cmd.Stdout = &out
 	cmd.Stderr = &stderr
 	err = cmd.Run()
-	fmt.Printf("cmd.Run with err :%+v\n", err)
+	fmt.Printf("cmd.Run with err :%+v\n, stderr = %+v", err, cmd.Stderr)
 
 	if err != nil {
-		fmt.Println("ignore error")
-		return nil
 		return err
 	}
 
