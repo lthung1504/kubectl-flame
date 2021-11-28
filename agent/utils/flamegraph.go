@@ -3,12 +3,14 @@ package utils
 import (
 	"bufio"
 	"encoding/base64"
+	"fmt"
 	"github.com/VerizonMedia/kubectl-flame/api"
 	"io/ioutil"
 	"os"
 )
 
 func PublishFlameGraph(flameFile string) error {
+	fmt.Println("PublishFlameGraph with flameFile = ", flameFile)
 	file, err := os.Open(flameFile)
 	if err != nil {
 		return err

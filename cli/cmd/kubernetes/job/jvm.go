@@ -122,6 +122,6 @@ func (c *jvmCreator) getAgentImage(targetDetails *data.TargetDetails) string {
 	}
 
 	// return fmt.Sprintf("%s:%s", baseImageName, tag)
-	return "kubectl-flame-asyncprofiler2:v0.0.1" // this is for test usage
+	return "kubectl-flame-asyncprofiler2:v0.0.2" // this is for test usage
 	// return "hyotestgrails242:latest"// TEMP: another test
 }

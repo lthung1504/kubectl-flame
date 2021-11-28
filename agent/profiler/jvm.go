@@ -2,6 +2,7 @@ package profiler
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/VerizonMedia/kubectl-flame/agent/details"
 	"github.com/VerizonMedia/kubectl-flame/agent/utils"
 	"os"
@@ -38,6 +39,7 @@ func (j *JvmProfiler) SetUp(job *details.ProfilingJob) error {
 }
 
 func (j *JvmProfiler) Invoke(job *details.ProfilingJob) error {
+	fmt.Printf("JvmProfiler invoke with job: %+v\n", job)
 	pid, err := utils.FindProcessId(job)
 	if err != nil {
 		return err
@@ -45,13 +47,20 @@ func (j *JvmProfiler) Invoke(job *details.ProfilingJob) error {
 
 	duration := strconv.Itoa(int(job.Duration.Seconds()))
 	event := string(job.Event)
-	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event, pid) // todo: can consider to add more command here :) to provide support for k8s too
+	fmt.Printf("trying exec.Command with fileName = %s, event = %s, pid = %s\n", fileName, event, pid)
+	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event, pid) // todo: can consider to add more command here :) to provide support for k8s too; the error from this cmd when it run !!
+
+	fmt.Printf("finish exec.Command with profilersh: %s\n", profilerSh)
 	var out bytes.Buffer
 	var stderr bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &stderr
 	err = cmd.Run()
+	fmt.Printf("cmd.Run with err :%+v\n", err)
+
 	if err != nil {
+		fmt.Println("ignore error")
+		return nil
 		return err
 	}
 

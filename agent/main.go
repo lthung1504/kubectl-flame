@@ -4,6 +4,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"os/signal"
 	"strings"
@@ -16,22 +17,28 @@ import (
 )
 
 func main() {
-	args, err := validateArgs()
+	println("starting2")
+	args, err := validateArgs() // this one is the one need arguments; maybe the one need params ??
 	handleError(err)
 
+	println("trying PublishEvent")
 	err = api.PublishEvent(api.Progress, &api.ProgressData{Time: time.Now(), Stage: api.Started})
 	handleError(err)
 
+	println("trying ForLanguage")
 	p, err := profiler.ForLanguage(args.Language)
 	handleError(err)
 
+	println("trying SetUp")
 	err = p.SetUp(args)
 	handleError(err)
 
+	println("trying handleSignals") // problem here
 	done := handleSignals()
 	err = p.Invoke(args)
 	handleError(err)
 
+	println("trying PublishEvent")
 	err = api.PublishEvent(api.Progress, &api.ProgressData{Time: time.Now(), Stage: api.Ended})
 	handleError(err)
 
@@ -80,6 +87,7 @@ func handleSignals() chan bool {
 
 func handleError(err error) {
 	if err != nil {
+		fmt.Printf("handleError with err = %+v\n", err)
 		api.PublishError(err)
 		os.Exit(1)
 	}
