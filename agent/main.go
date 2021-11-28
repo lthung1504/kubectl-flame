@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	println("starting2")
+	println("starting")
 	args, err := validateArgs() // this one is the one need arguments; maybe the one need params ??
 	handleError(err)
 
