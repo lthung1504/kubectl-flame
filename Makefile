@@ -15,4 +15,8 @@ execute:
 expose_hyotestgrails242_service_port:
 	kubectl port-forward service/hyotestgrails242 8080:8080
 
+push_to_docker_hub:
+	# build latest image file, then tag it, then push to hub
+	docker tag kubectl-flame-asyncprofiler2:v0.0.3 thanhhungle/kubectl-flame-asyncprofiler2:v0.0.3
+	docker push thanhhungle/kubectl-flame-asyncprofiler2:v0.0.3
 # README: use from top to bottom, to try it out. can share with SRE the file, to run execute when needed with the pod name input
