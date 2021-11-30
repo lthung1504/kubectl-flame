@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	args, err := validateArgs() // this one is the one need arguments; maybe the one need params ??
+	args, err := validateArgs()
 	handleError(err)
 
 	err = api.PublishEvent(api.Progress, &api.ProgressData{Time: time.Now(), Stage: api.Started})

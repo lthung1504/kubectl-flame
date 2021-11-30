@@ -16,7 +16,3 @@ func String() string {
 func GetCurrent() string {
 	return semver
 }
-
-func init() { // TEMP: use for testing
-	semver = "v0.2.2"
-}

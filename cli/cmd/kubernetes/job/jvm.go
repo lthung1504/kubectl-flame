@@ -80,11 +80,10 @@ func (c *jvmCreator) create(targetPod *apiv1.Pod, cfg *data.FlameConfig) (string
 					Containers: []apiv1.Container{
 						{
 							ImagePullPolicy: apiv1.PullAlways,
-							// ImagePullPolicy: apiv1.PullNever, // TEMP: to be able to build for dev mode
-							Name:    ContainerName,
-							Image:   imageName,
-							Command: []string{"/app/agent"},
-							Args:    args,
+							Name:            ContainerName,
+							Image:           imageName,
+							Command:         []string{"/app/agent"},
+							Args:            args,
 							VolumeMounts: []apiv1.VolumeMount{
 								{
 									Name:      "target-filesystem",
