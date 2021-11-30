@@ -1,3 +1,4 @@
+LATEST_TAG=v1.0.0-hyo
 
 docker_build_new:
 	# need to change version, such as: 0.0.5
@@ -6,12 +7,12 @@ docker_build_new:
 
 release_without_publish:
 	# need to tag it, such as "git tag -a v0.0.2 -m 'first next release'"
-	git tag -a $(NEW_TAG) -m 'bump tag'
+	git tag -a $(LATEST_TAG) -m 'bump tag'
 	goreleaser release --rm-dist --skip-publish
 
 release:
 	# need to tag it, such as "git tag -a v0.0.2 -m 'first next release'"
-	git tag -a $(NEW_TAG) -m 'bump tag'
+	git tag -a $(LATEST_TAG) -m 'bump tag'
 	goreleaser release --rm-dist
 
 execute:
@@ -22,6 +23,6 @@ expose_hyotestgrails242_service_port:
 
 push_to_docker_hub:
 	# build latest image file, then tag it, then push to hub
-	docker tag kubectl-flame-asyncprofiler2:v1.0.0-hyo thanhhungle/kubectl-flame-asyncprofiler2:v1.0.0-hyo
-	docker push thanhhungle/kubectl-flame-asyncprofiler2:v1.0.0-hyo
+	docker tag kubectl-flame-asyncprofiler2:$(LATEST_TAG) thanhhungle/kubectl-flame-asyncprofiler2:$(LATEST_TAG)
+	docker push thanhhungle/kubectl-flame-asyncprofiler2:$(LATEST_TAG)
 # README: use from top to bottom, to try it out. can share with SRE the file, to run execute when needed with the pod name input
