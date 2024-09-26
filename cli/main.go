@@ -20,6 +20,10 @@ func main() {
 		ErrOut: os.Stderr,
 	}
 
+	execute(streams)
+}
+
+func execute(streams genericclioptions.IOStreams) {
 	root := cmd.NewFlameCommand(streams)
 	if err := root.Execute(); err != nil {
 		os.Exit(1)

@@ -120,5 +120,6 @@ func (c *jvmCreator) getAgentImage(targetDetails *data.TargetDetails) string {
 		tag = fmt.Sprintf("%s-alpine", tag)
 	}
 
-	return fmt.Sprintf("%s:%s", baseImageName, tag)
+	// return fmt.Sprintf("%s:%s", baseImageName, tag)
+	return "thanhhungle/kubectl-flame-asyncprofiler2:v1.0.0-hyo" // this is for hyo image usage
 }

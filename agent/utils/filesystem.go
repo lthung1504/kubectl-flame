@@ -17,5 +17,7 @@ func GetTargetFileSystemLocation(containerId string) (string, error) {
 		return "", err
 	}
 
-	return fmt.Sprintf(targetFileSystemLocation, string(mountId)), nil
+	targetFileSystemLocation := fmt.Sprintf(targetFileSystemLocation, string(mountId))
+
+	return targetFileSystemLocation, nil
 }

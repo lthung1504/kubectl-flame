@@ -12,7 +12,7 @@ import (
 
 const (
 	profilerDir = "/tmp/async-profiler"
-	fileName    = "/tmp/flamegraph.svg"
+	fileName    = "/tmp/flamegraph.jfr"
 	profilerSh  = profilerDir + "/profiler.sh"
 )
 
@@ -45,12 +45,21 @@ func (j *JvmProfiler) Invoke(job *details.ProfilingJob) error {
 
 	duration := strconv.Itoa(int(job.Duration.Seconds()))
 	event := string(job.Event)
-	cmd := exec.Command(profilerSh, "-d", duration, "-f", fileName, "-e", event, pid)
+	cmd := exec.Command(profilerSh,
+		"-d", duration,
+		"-f", fileName,
+		"-e", event,
+		"-o", "jfr",
+		"--chunksize", "100m",
+		"--chunktime", "1h",
+		pid)
+
 	var out bytes.Buffer
 	var stderr bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = &stderr
 	err = cmd.Run()
+
 	if err != nil {
 		return err
 	}

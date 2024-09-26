@@ -8,6 +8,7 @@ FROM openjdk:8 as asyncprofiler
 RUN curl -o async-profiler-2.5-linux-x64.tar.gz -L \
     https://github.com/jvm-profiling-tools/async-profiler/releases/download/v2.5/async-profiler-2.5-linux-x64.tar.gz
 RUN tar -xvf async-profiler-2.5-linux-x64.tar.gz && mv async-profiler-2.5-linux-x64 async-profiler
+ADD profiler.sh async-profiler/profiler.sh
 
 FROM bitnami/minideb:stretch
 RUN mkdir -p /app/async-profiler/build
